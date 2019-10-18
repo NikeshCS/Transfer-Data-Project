@@ -9,3 +9,17 @@ How to execute the program:
 ./mighty.txt [inputfile.txt] [outputfile.txt]
 
 *Note: The character buffer max is 600
+
+Details:
+- Creates a pipe
+- Forks a process
+
+Child process: 
+    - Calls dup2, writes to standard output goes to the write of end of pipe
+    - Uses EXECL to execute cat-b command
+    
+Parent process: 
+    - opens argument 2, file that we are writing to
+    - Reads from the pipe until no characters are available
+    - Writes to standard output
+    - Writes to file
